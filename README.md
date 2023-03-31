@@ -79,7 +79,9 @@ Provider 1: id: 0x47; cap: 0xb (Source Output, Sink Output, Sink Offload); crtcs
     output VIRTUAL2
     output VIRTUAL3</code></pre>
 
-<h4></h4>
-<p></p>
-<pre><code></code></pre>
-</br>
+<h4>Alguns comandos para usar os monitores virtuais:</h4>
+<pre><code>gtf 1920 1080 60
+xrandr --newmode "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+xrandr --addmode VIRTUAL1 1920x1080_60.00
+xrandr --output VIRTUAL1 --off
+</code></pre>
