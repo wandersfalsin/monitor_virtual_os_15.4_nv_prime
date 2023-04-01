@@ -13,7 +13,7 @@ Habilitando monitor virtual em notebook com placa de vídeo nVidia (Prime) em op
 <p>A instalação do driver da nvidia foi feita pelo repositório padrão da nvidia.</p>
 https://download.nvidia.com/opensuse/leap/15.4</br></br>
 
-<p>Logo após a instalação do driver oficial, veio o primeiro problema: Não reconhecia a tela do notebook, somente o monitor externo. Para resolver, foi preciso acrescentar a seguintes linhas ao final do arquivo /etc/X11/xorg.conf:</p>
+<p>Logo após a instalação do driver oficial, veio o primeiro problema: Não reconhecia a tela do notebook, somente o monitor externo. Para resolver, foi preciso acrescentar as seguintes linhas ao final do arquivo <code>/etc/X11/xorg.conf</code>:</p>
 <pre><code>Section "Device"
     Identifier  "intel"
     Driver      "modesetting"
@@ -31,8 +31,8 @@ Provider 0: id: 0x247; cap: 0x1 (Source Output); crtcs: 4; outputs: 3; associate
     output DP-1
 Provider 1: id: 0x47; cap: 0xb (Source Output, Sink Output, Sink Offload); crtcs: 6; outputs: 1; associated providers: 1; name: Intel
     output eDP1</code></pre>
-<p>Como pode ser visto, não há monitores virutais. Para habilitar, precisa criar um arquivo para que o Xorg configure os monitores virtuais na pasta /etc/X11/xorg.conf.d/.</p>
-/etc/X11/xorg.conf.d/30-virtscreen.conf
+<p>Como pode ser visto, não há monitores virtuais. Para habilitar, precisa criar um arquivo na pasta <code>/etc/X11/xorg.conf.d/</code> para que o Xorg configure os monitores virtuais.</p>
+<code>/etc/X11/xorg.conf.d/30-virtscreen.conf</code>
 <pre><code>Section "Device"
   Identifier "nvidiagpu0"
   Driver     "nvidia" # Because you are using Nvidia proprietary driver. Change to "nouveau" if you are using open source nouveau driver
@@ -45,7 +45,7 @@ Section "Device"
 EndSection
 </code></pre>
 <p>Novamente, após inserir essas linha, só fazer logout e login que a configuração já será aplicada.</p>
-<p>Listar novamente as saídas com o comando <code>xrandr --listproviders</code> para ver se monitores virtuais estão habilitados:</p>
+<p>Listar novamente as saídas com o comando <code>xrandr --listproviders</code> para ver se os monitores virtuais estão habilitados:</p>
 <pre><code>Providers: number : 2
 Provider 0: id: 0x247; cap: 0x1 (Source Output); crtcs: 4; outputs: 3; associated providers: 1; name: NVIDIA-0
     output HDMI-0
@@ -53,7 +53,7 @@ Provider 0: id: 0x247; cap: 0x1 (Source Output); crtcs: 4; outputs: 3; associate
     output DP-1
 Provider 1: id: 0x47; cap: 0xb (Source Output, Sink Output, Sink Offload); crtcs: 6; outputs: 1; associated providers: 1; name: Intel
     output eDP1</code></pre>
-<p>Nesse caso, não apareceu. Após verificar os logs do Xorg, o módulo 'intel' constava com inexistente:</p>
+<p>Nesse caso, não apareceu. Após verificar os logs do Xorg, o módulo 'intel' constava como inexistente:</p>
 <code>sudo cat /var/log/Xorg.0.log</code>
 <pre><code>[   754.218] (II) LoadModule: "intel"
 [   754.219] (WW) Warning, couldn't open module intel
